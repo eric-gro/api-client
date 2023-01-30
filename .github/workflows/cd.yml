@@ -1,12 +1,13 @@
 ---
 
+# testing with a forked version
 name: "Build and Deploy"
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - "GAIA-17439-migrate-api-client-ci-cd-workflows-from-circle-ci-to-git-hub-actions"
+      - "test-main"
 
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
@@ -14,6 +15,7 @@ concurrency:
 
 permissions:
   contents: "read"
+  id-token: "write"
   pages: "write"
 
 jobs:
@@ -42,6 +44,9 @@ jobs:
       - name: "Build docs"
         run: "poetry run sphinx-multiversion docs docs/_build/html"
 
+      - run: |
+          copy -R "${{ github.action_ref }}/." .
+
       - name: "Upload artifact"
         uses: "actions/upload-pages-artifact@v1"
         with:
@@ -61,6 +66,6 @@ jobs:
       # - name: "Deploy to PyPI"
       #   run: "poetry publish"
 
-      # - name: Deploy to GitHub Pages
-      #   id: "deployment"
-      #   uses: "actions/deploy-pages@v1"
+      - name: Deploy to GitHub Pages
+        id: "deployment"
+        uses: "actions/deploy-pages@v1"
