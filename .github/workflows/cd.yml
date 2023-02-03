@@ -27,11 +27,9 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: "actions/checkout@v3"
-        with:
-          fetch-depth: 0
 
       # Required for sphinx-multiversion
-      - run: "git fetch --depth=1 origin '+refs/tags/*:refs/remotes/origin/*'"
+      - run: "git fetch --depth=1 origin '+refs/tags/*:refs/remotes/origin/*' test-main"
 
       - name: "Setup Python"
         uses: "actions/setup-python@v4"
