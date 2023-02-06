@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "groclient"
+name = "groclient-fork-tests"
 # NOTE: We use poetry-dynamic-versioning to set the version from git
 version = "0.0.0"
 description = "Python client library for accessing Gro Intelligence's agricultural data platform"
 authors = ["Gro Intelligence <dev@gro-intelligence.com>"]
 readme = "README.md"
 homepage = "https://gro-intelligence.com/platform/api"
-repository = "https://github.com/gro-intelligence/api-client"
+repository = "https://github.com/eric-gro/api-client-fork"
 documentation = "https://developers.gro-intelligence.com/"
 license = "MIT"
 # TODO: Update once we remove the old api/ directory
