@@ -43,9 +43,6 @@ jobs:
           pip install poetry==1.2.0a2 poetry-dynamic-versioning==0.17.1
           poetry install --with docs
 
-      - name: "Build package"
-        run: "poetry build"
-
       - name: "Build docs"
         run: "poetry run sphinx-multiversion docs docs/_build/html"
 
@@ -71,14 +68,22 @@ jobs:
     steps:
       - name: "Checkout repository"
         uses: "actions/checkout@v3"
+      
+      - name: "Install dependencies"
+        run: |
+          pip install poetry==1.2.0a2 poetry-dynamic-versioning==0.17.1
+          #poetry install
 
-      - name: "Deploy to PyPI"
+      - name: "Deploy to TEST-PyPI"
         if: "${{ github.ref_type == 'branch' }}"
-        run: echo "Found ${{ github.ref_name }}"
+        run: >-
+          poetry config repositories.testpypi https://test.pypi.org/legacy/ &&
+          poetry publish --build -u __token__ -p ${{secrets.TEST_PYPI_TOKEN }} -r testpypi
 
       - name: "Deploy to PyPI"
         if: "${{ github.ref_type == 'tag' }}"
-        run: echo "Found ${{ github.ref_name }}"
+        run: |
+          poetry publish --build -u __token__ -p ${{ secrets.PYPI_TOKEN }}
 
       - name: Deploy to GitHub Pages
         id: "deployment"
