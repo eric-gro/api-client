@@ -55,7 +55,7 @@ jobs:
           # docs at the top level.`sphinx-multiversion` only generates the separate
           # directories. To avoid breaking links, we copy the the root ref docs (i.e.,
           # the `main` branch docs) to the parent directory containing all docs.
-          cp -R "docs/_build/html/${{ github.ref_name }}/." docs/_build/html
+          cp -R "docs/_build/html/test-main/." docs/_build/html
 
       - name: "Upload artifact"
         uses: "actions/upload-pages-artifact@v1"
