@@ -31,7 +31,7 @@ jobs:
           ref: "test-main"
 
       # Required for sphinx-multiversion
-      #- run: "git fetch --depth=1 origin '+refs/tags/*:refs/remotes/origin/*' test-main"
+      - run: "git fetch --depth=1 origin '+refs/tags/*:refs/remotes/origin/*' test-main"
 
       - name: "Setup Python"
         uses: "actions/setup-python@v4"
