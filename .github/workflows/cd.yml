@@ -88,7 +88,8 @@ jobs:
       - name: "Deploy to PyPI"
         if: "${{ github.ref_type == 'tag' }}"
         run: |
-          poetry publish --build -u __token__ -p ${{ secrets.PYPI_TOKEN }}
+          poetry config repositories.testpypi https://test.pypi.org/legacy/ &&
+          poetry publish --build -u __token__ -p ${{secrets.TEST_PYPI_TOKEN }} -r testpypi
 
       - name: Deploy to GitHub Pages
         id: "deployment"
